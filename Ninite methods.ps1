@@ -51,23 +51,11 @@ $jetbrains.Links |
     Where-Object { $_.ID -eq 'download-link' } |
     Select-Object -ExpandProperty href
     
-$ie = new-object -ComObject "InternetExplorer.Application"
-$url = "https://support.microsoft.com/en-us/help/4052574/cumulative-update-2-for-sql-server-2017"
-$ie.silent = $true
-$ie.navigate($url)
-while ($ie.Busy) { Start-Sleep -Milliseconds 100 }
-Start-Sleep 10
-$ie.Document.documentElement.innerHTML > 'C:\Users\Kosta\Desktop'
-$ie.Stop()
-$ie.Quit()    
+$discord = Invoke-WebRequest -Uri https://discordapp.com/download
+$discord.ParsedHtml.getElementsByTagName('a') |
+    Where-Object { $_.className -eq 'download-btn' } |
+    #ForEach-Object { $_.getElementsByTagName('') } |
+    Select-Object -Expand href
 
-<#$JB = new-object -ComObject "InternetExplorer.Application"
-$jetbrain = "https://www.jetbrains.com/toolbox/download/download-thanks.html"
-$JB.silent = $true
-$JB.navigate($jetbrain)
-while ($JB.Busy) { Start-Sleep -Milliseconds 100 }
-Start-Sleep 10
-$JB.Document.documentElement.innerHTML > ~/Desktop
-$JB.Stop()
-$JB.Quit()
-#>
+$discord.Links | Select-Object class | Sort-Object class -Unique
+(($discord).Links | Where-Object {$_.href} | Where class -eq “download”).Title
