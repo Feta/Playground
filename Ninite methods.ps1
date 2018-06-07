@@ -41,7 +41,9 @@ $mylinks | out-string -Width 400
 $mylinks | out-string -Width 400 > 'C:\Users\Kosta\Desktop\Coding Env\Playground'#>#>
 
 
-$jetbrains = Invoke-WebRequest -Uri https://www.jetbrains.com/toolbox/download/download-thanks.html
+$jetbrains = Invoke-WebRequest -Uri https://www.jetbrains.com/toolbox/download/download-thanks.html 
+Invoke-WebRequest -Uri https://www.jetbrains.com/toolbox/download/download-thanks.html -OutFile aids.html
+
 $jetbrains.ParsedHtml.getElementsByTagName('p') |
     Where-Object { $_.className -eq 'sub-title no-margin-bottom' } |
     ForEach-Object { $_.getElementsByTagName('download-link') } |
@@ -57,5 +59,6 @@ $discord.ParsedHtml.getElementsByTagName('a') |
     #ForEach-Object { $_.getElementsByTagName('') } |
     Select-Object -Expand href
 
-$discord.Links | Select-Object class | Sort-Object class -Unique
-(($discord).Links | Where-Object {$_.href} | Where class -eq “download”).Title
+# $web = New-Object Net.WebClient
+# $web | Get-Member
+# $web.DownloadString("https://www.jetbrains.com/toolbox/download/download-thanks.html")
