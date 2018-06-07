@@ -50,6 +50,24 @@ $jetbrains.ParsedHtml.getElementsByTagName('p') |
 $jetbrains.Links |
     Where-Object { $_.ID -eq 'download-link' } |
     Select-Object -ExpandProperty href
-    $jetbrainsdownload = Select-Object -ExpandProperty href
-    Write-Host $jetbraindownload.toString()
-    Start-BitsTransfer -Source $jetbrainsdownload -Destination C:\Users\Kosta\Desktop
+    
+$ie = new-object -ComObject "InternetExplorer.Application"
+$url = "https://support.microsoft.com/en-us/help/4052574/cumulative-update-2-for-sql-server-2017"
+$ie.silent = $true
+$ie.navigate($url)
+while ($ie.Busy) { Start-Sleep -Milliseconds 100 }
+Start-Sleep 10
+$ie.Document.documentElement.innerHTML > 'C:\Users\Kosta\Desktop'
+$ie.Stop()
+$ie.Quit()    
+
+<#$JB = new-object -ComObject "InternetExplorer.Application"
+$jetbrain = "https://www.jetbrains.com/toolbox/download/download-thanks.html"
+$JB.silent = $true
+$JB.navigate($jetbrain)
+while ($JB.Busy) { Start-Sleep -Milliseconds 100 }
+Start-Sleep 10
+$JB.Document.documentElement.innerHTML > ~/Desktop
+$JB.Stop()
+$JB.Quit()
+#>
