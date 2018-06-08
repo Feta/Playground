@@ -40,7 +40,7 @@ $mylinks | out-string -Width 400
 # output to file
 $mylinks | out-string -Width 400 > 'C:\Users\Kosta\Desktop\Coding Env\Playground'#>#>
 
-
+# link from email: "https://download.jetbrains.com/product?code=TBA&distribution=windows"
 $jetbrains = Invoke-WebRequest -Uri https://www.jetbrains.com/toolbox/download/download-thanks.html 
 Invoke-WebRequest -Uri https://www.jetbrains.com/toolbox/download/download-thanks.html -OutFile aids.html
 
